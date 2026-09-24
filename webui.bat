@@ -60,7 +60,7 @@ set ACCELERATE="%VENV_DIR%\Scripts\accelerate.exe"
 if EXIST %ACCELERATE% goto :accelerate_launch
 
 :launch
-%PYTHON% launch.py --medvram %*
+%PYTHON% launch.py --api --listen --port 7880 --no-half-vae --enable-insecure-extension-access --disable-nan-check --device-id=0 --medvram --ckpt-dir "D:\2_Apps\ComfyUI App\models\checkpoints" --lora-dir "D:\2_Apps\ComfyUI App\models\loras" %*
 if EXIST tmp/restart goto :skip_venv
 %PYTHON% launch.py --medvram %*
 pause
@@ -68,7 +68,7 @@ exit /b
 
 :accelerate_launch
 echo Accelerating
-%ACCELERATE% launch --num_cpu_threads_per_process=6 launch.py
+%ACCELERATE% launch --num_cpu_threads_per_process=6 launch.py 
 pause
 exit /b
 
